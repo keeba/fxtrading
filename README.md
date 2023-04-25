@@ -13,6 +13,8 @@ Used local storage as database, hard-coded few parent orders, child orders and p
 
 Used material UI completely.
 
+Refreshing the watch list using setInterveral by randomly updating the no of ticks for each Currency Pair.
+
 Parent order will be marked as Rejected if the price is more than +/- 5% of base price and user can cancel it after that, we can filter out Rejected orders also if required.
 
 Cancelling the order will remove the entry from Parent Orders, allowing the user to cancel the order only if Status is Open or Rejected.
