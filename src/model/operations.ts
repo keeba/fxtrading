@@ -1,4 +1,5 @@
 import { IChildOrder, ICurrencyPair, IParentOrder, IPosition } from "./interfaces"
+import { ChildOrders as DefaultChildOrders } from './data'
 
 export const refreshCurrencyPairs = (CurrencyPairs: ICurrencyPair[]) => {
 	const newCurrencyPairs = CurrencyPairs.map(CP => ({...CP, noOfTicks: Math.random() * 100, increment: Math.random() * 1 ? true : false }))
@@ -38,14 +39,14 @@ export const addChildOrder = async (ParentOrderID: string, OrderID: string, Symb
 		OrderID, ParentOrderID, Symbol, Price, Quantity, Side, OrderStatus: 'Complete'
 	}
 	let ChildOrdersString = localStorage.getItem('ChildOrders')
-	const ChildOrders: IChildOrder[] = ChildOrdersString ? JSON.parse(ChildOrdersString): []
+	const ChildOrders: IChildOrder[] = ChildOrdersString ? JSON.parse(ChildOrdersString): DefaultChildOrders
 	ChildOrders.push(newChildOrder)
 	localStorage.setItem('ChildOrders', JSON.stringify(ChildOrders))
 	let COCount = localStorage.getItem('ChildOrdersCount')
 	localStorage.setItem('ChildOrdersCount', ((COCount ? parseInt(COCount) : 0) + 1).toString())
 	const ParentOrders = updateParentOrders(ParentOrderID, ChildOrders.filter((CO) => CO.ParentOrderID == ParentOrderID))
-	const Positions = updatePositions(Symbol, ParentOrders.filter((PO) => PO.Symbol == Symbol))
-	return {ChildOrders, ParentOrders, Positions}
+	updatePositions(Symbol, ParentOrders.filter((PO) => PO.Symbol == Symbol))
+	return ParentOrders
 }
 
 export const updateParentOrders = (ParentOrderID: string, ChildOrders: IChildOrder[]) => {
@@ -87,7 +88,6 @@ export const updatePositions = (Symbol: string, ParentOrders: IParentOrder[]) =>
 	Position.NetQuantity = NetQuantity
 	Position.AvgPrice = parseFloat((NetQuantity != 0 ? Cummulative/NetQuantity : Cummulative).toFixed(5))
 	localStorage.setItem('Positions', JSON.stringify(Positions))
-	return Positions
 }
 
 export const cancelOrder = async (OrderID: string) => {

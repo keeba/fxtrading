@@ -2,10 +2,12 @@ import {useState} from 'react'
 import {Route, Routes} from 'react-router-dom'
 import FXAppBar from "./components/FXAppBar"
 import WatchList from "./components/WatchList"
-import Orders from "./components/Orders"
+import ParentOrders from "./components/Orders/ParentOrders"
 import Grid from '@mui/material/Grid'
 import { OrdersCountContext } from './context'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
+import ChildOrders from './components/Orders/ChildOrders'
+import Positions from './components/Orders/Positions'
 
 const lightTheme = createTheme({
 	palette: {
@@ -32,10 +34,10 @@ const Home = () => {
 						</Grid>
 						<Grid item xs={8}>
 							<Routes>
-								<Route path='/parentorders' element={<Orders />} />
-								<Route path='/childorders/:id' element={<Orders />} />
-								<Route path='/positions' element={<Orders />} />
-								<Route path="*" element={<Orders />} />
+								<Route path='/parentorders' element={<ParentOrders />} />
+								<Route path='/childorders/:id' element={<ChildOrders />} />
+								<Route path='/positions' element={<Positions />} />
+								<Route path="*" element={<ParentOrders />} />
 							</Routes>
 						</Grid>
 					</Grid>

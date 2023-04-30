@@ -44,7 +44,7 @@ const WatchList: React.FC<{setOrdersCount: Function}> = ({setOrdersCount}) => {
 					{CurrencyPairs.map(CP => <WatchListItem key={CP.name} CurrencyPair={CP} handleOpen={handleOpen}/>)}
 				</Stack>
 			</Box>
-			<LocalModal
+			{open && <LocalModal
 				title={'Add Order'}
 				key={selectedCP?.name + 'NewOrder'}
 				details={
@@ -57,7 +57,7 @@ const WatchList: React.FC<{setOrdersCount: Function}> = ({setOrdersCount}) => {
 				open={open}
 				handleClose={handleClose}
 				handleSubmit={handleAddParentOrder}
-			/>
+			/>}
 		</>
 	)
 }

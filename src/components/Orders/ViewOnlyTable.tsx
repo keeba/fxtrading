@@ -6,8 +6,8 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import TablePagination from '@mui/material/TablePagination'
 import Paper from '@mui/material/Paper'
-import {StyledTableCell, StyledTableRow } from './ParentOrdersTable'
-import useTablePagination from '../useTablePagination'
+import {StyledTableCell, StyledTableRow } from './ParentOrders'
+import useTablePagination from '../../useTablePagination'
 
 const ViewOnlyTable: React.FC<{data: any[], type: string}> = ({data, type}) => {
 	const {page, visibleRows, paddingHeight, handleChangePage} = useTablePagination(data || [])

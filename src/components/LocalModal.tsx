@@ -70,6 +70,7 @@ const LocalModal: React.FC<{open: boolean, handleClose: any, title: string, deta
 		return true
 	}
 
+	console.log(Quantity + title)
 	return (
 		<Modal
 			open={open}
@@ -189,7 +190,7 @@ const LocalModal: React.FC<{open: boolean, handleClose: any, title: string, deta
 						<Button
 							variant="contained"
 							onClick={() => handleSubmit(details.ParentOrderID, details.OrderID, details.Symbol, executePrice, Quantity, Side)}
-							disabled={(Price && Price > 0 && !ShowQuantityError()) ? false : true}
+							disabled={(executePrice && executePrice > 0 && !ShowQuantityError()) ? false : true}
 						>
 							Submit
 						</Button>}
